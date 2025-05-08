@@ -49,3 +49,16 @@ python3 manage.py migrate
 ```
 python3 manage.py runserver
 ```
+
+### Настройка окружения
+pyenv versions
+pyenv local 3.9
+
+pyenv exec python3 -m venv venv
+or python3 -m venv venv
+
+source venv/bin/activate
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+
+pip freeze > requirements.txt
