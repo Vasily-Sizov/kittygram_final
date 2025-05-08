@@ -1,7 +1,75 @@
 
 # Kittygram
+![Workflow Status](https://github.com/Vasily-Sizov/kittygram_final/actions/workflows/main.yaml/badge.svg)
 
-### Общая схема работы
+## Описание
+**Kittygram** - это веб-приложение для любителей кошек, где пользователи могут делиться фотографиями своих питомцев, указывать их имя, цвет и год рождения, а также добавлять достижения.
+
+---
+
+## Технологии
+**Backend**
+- Python 3.9
+- Django
+- Django REST Framework
+- PostgreSQL
+- Gunicorn
+- Python-dotenv
+- Pillow
+
+**Frontend**
+- React
+- Node.js 18
+
+**Инфраструктура**
+- NGINX
+- Docker
+- Docker Compose
+- GitHub Actions (CI/CD)
+- База данных: PostgreSQL 13
+- Тестирование: Flake8, Django Test Framework, npm test
+
+---
+
+## Как запустить проект
+
+**1. Клонирование репозитория**
+
+- `git clone https://github.com/Vasily-Sizov/kittygram_final.git`
+- `cd kittygram_final`
+
+**2. Создание и настройка `.env` файла**
+
+Создайте файл `.env` в корневой директории проекта и добавьте следующие переменные:
+
+```
+POSTGRES_DB=kittygram
+POSTGRES_USER=kittygram_user
+POSTGRES_PASSWORD=kittygram_password
+DB_NAME=kittygram
+DB_HOST=db
+DB_PORT=5432
+
+SECRET_KEY = your_secret_key
+DEBUG=False
+ALLOWED_HOSTS=your_domain_or_ip
+USE_SQLITE=False
+```
+
+**3. Запуск проекта с помощью Docker Compose**
+
+`docker-compose -f docker-compose.production.yml up -d`
+
+**4. Применение миграций и сбор статических файлов**
+
+```
+docker-compose -f docker-compose.production.yml exec backend python manage.py migrate
+docker-compose -f docker-compose.production.yml exec backend python manage.py collectstatic --noinput
+```
+
+---
+
+## Общая схема работы
 
 **1. DNS и внешняя сеть**
 - Пользователь вводит `kittygram1.ru` в браузере
@@ -66,14 +134,14 @@ volumes:
 
 ---
 
-### docker-compose.yml
+## docker-compose.yml
 
-Тома (volumes):
+**Тома (volumes):**
 - `pg_data` - для хранения данных PostgreSQL
 - `static` - для статических файлов
 - `media` - для медиафайлов
 
-Сервисы:
+**Сервисы:**
 1. `db` - база данных `PostgreSQL 13` 
 - использует переменные среды из `.env` 
 - хранит данные в томе `pg_data`
@@ -134,3 +202,9 @@ volumes:
         - Выполняет миграции БД
         - Собирает статические файлы
         - Копирует собранную статику в нужную директорию
+
+---
+
+## Автор
+
+- Сизов Василий
